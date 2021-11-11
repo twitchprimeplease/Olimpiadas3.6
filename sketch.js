@@ -6,16 +6,17 @@ class Enemy{
     this.ancho=45;
   }
   createEnemy(){
-    fill(191, 19, 4);
+    fill(191, 19, 225);
     rect(this.x,this.y,this.largo,this.ancho);
-    noFill();
+    
 
   }
   validateContact(bullet){
-    if (dist(this.x, this.y, bullet.getX(), bullet.getY())<10){
+    if (dist(this.x, this.y, bullet.getX(), bullet.getY())<30){
       return true
+    }else{
+      return false
     }
-    return false
   }
   getX(){
     return this.x;
@@ -61,8 +62,8 @@ class Hero{
   moving(mX){
     this.x=mX;
   }
-  shoot(bullets){
-    bullets.push(new Bullet(this.x,this.y));
+  shoot(bullet){
+    bullet.push(new Bullet(this.x,this.y));
 
   }
   getX(){
@@ -106,10 +107,10 @@ function draw() {
 }
 
 function validarBulletContact (){
-  for (let bullet = 0; bullet < bullets.length; bullet++) {
-    for (let enemy = 0; enemy < Enemy.length; enemy++) {
-      if(army[enemy].validateContact(bulletss[bullet])){
-        console.log("Please")
+  for (let bullets = 0; bullets < bullet.length; bullets++) {
+    for (let enemy = 0; enemy < army.length; enemy++) {
+      if(army[enemy].validateContact(bullet[bullets])){
+        console.log("Please");
       }
       
     }
@@ -122,5 +123,5 @@ function mouseMoved (){
 
 }
 function mousePressed(){
-  bullet.push(new Bullets(cait.getX(),cait.getY()));
+  bullet.push(new Bullet(cait.getX(),cait.getY()));
 }
