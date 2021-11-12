@@ -4,6 +4,7 @@ class Enemy{
     this.y=y;
     this.largo=75;
     this.ancho=45;
+    this.direccionX=1;
   }
   createEnemy(){
     fill(191, 19, 225);
@@ -12,11 +13,21 @@ class Enemy{
 
   }
   validateContact(bullet){
-    if (dist(this.x, this.y, bullet.getX(), bullet.getY())<30){
+    if (dist(this.x, this.y, bullet.getX(), bullet.getY())<22){
       return true
     }else{
       return false
+    }  
+
+  }
+
+  desplazar(){
+    this.x +=5*this.direccionX;
+    if (this.x == 775 || this.x == 0) {
+      this.direccionX *=-1;
+      this.y +=120;
     }
+
   }
   getX(){
     return this.x;
@@ -95,6 +106,7 @@ function draw() {
   cait.createHero();
   army.forEach(enemy => {
     enemy.createEnemy();
+    enemy.desplazar();
   });
 
   for (let i = 0; i < bullet.length; i++) {
@@ -111,6 +123,8 @@ function validarBulletContact (){
     for (let enemy = 0; enemy < army.length; enemy++) {
       if(army[enemy].validateContact(bullet[bullets])){
         console.log("Please");
+        army.splice(enemy,1);
+        bullet.splice(bullet,1);
       }
       
     }
